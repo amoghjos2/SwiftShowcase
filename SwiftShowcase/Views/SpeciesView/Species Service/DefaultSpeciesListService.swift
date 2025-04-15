@@ -9,7 +9,7 @@ import Foundation
 
 struct DefaultSpeciesListService: SpeciesListService {
     
-    let networkService: NetworkService
+    private let networkService: NetworkService
     
     init(networkService: NetworkService = DefaultNetworkService()) {
         self.networkService = networkService
@@ -30,18 +30,32 @@ struct DefaultSpeciesListService: SpeciesListService {
         
         return species
     }
-}
+    
+    private struct SpeciesListEndPoint: SpeciesEndPoint {
+        
+        let page: String
+        
+        var path: String {
+            return "/api/species-list"
+        }
+        
+        var queryItems: [URLQueryItem]? {
+            return baseQueryItems + [URLQueryItem(name: "page", value: page)]
+        }
+    }
+    
+    private struct Data: Decodable {
+        let data: [SpecieDetail]
+    }
 
-struct Data: Decodable {
-    let data: [SpecieDetail]
-}
+    private struct SpecieDetail: Decodable {
+        let id: Int
+        let common_name: String
+        let default_image: DefaultImage?
+    }
 
-struct SpecieDetail: Decodable {
-    let id: Int
-    let common_name: String
-    let default_image: DefaultImage?
-}
+    private struct DefaultImage: Decodable {
+        let thumbnail: String
+    }
 
-struct DefaultImage: Decodable {
-    let thumbnail: String
 }
