@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkService {
-    func request<T: Decodable>(at endPoint: EndPoint) async throws -> T
+    func request<T: Decodable>(at endPoint: EndPoint) async throws(NetworkError) -> T
 }
 
 protocol EndPoint {
