@@ -16,8 +16,12 @@ struct ContentView: View {
             Text("let's do it!")
                 .onAppear {
                     Task {
-                        let data = try await DefaultSpeciesListService().speciesList(for: 1)
-                        print(data)
+                        do {
+                            let data = try await DefaultSpeciesListService().speciesList(for: 1)
+                            print(data)
+                        } catch {
+                            print(error)
+                        }
 
                     }
                 }

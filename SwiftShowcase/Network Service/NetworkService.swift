@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkService {
-    func request<T: Decodable>(at endPoint: EndPoint) async throws(NetworkError) -> T
+    func request<T: Decodable>(at endPoint: EndPoint) async throws -> T
 }
 
 protocol EndPoint {
@@ -20,8 +20,5 @@ protocol EndPoint {
 
 enum NetworkError: Error {
     case invalidEndPoint(EndPoint)
-    case urlError(URLError)
     case invalidStatusCode(Int)
-    case failedDecoding(DecodingError)
-    case otherError(Error)
 }

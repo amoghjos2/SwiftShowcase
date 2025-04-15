@@ -15,23 +15,13 @@ struct DefaultNetworkService: NetworkService {
         self.session = session
     }
     
-    func request<T: Decodable>(at endPoint: EndPoint) async throws(NetworkError) -> T {
-    
+    func request<T: Decodable>(at endPoint: EndPoint) async throws -> T {
+        
         guard let url = buildURL(from: endPoint) else {
             throw NetworkError.invalidEndPoint(endPoint)
         }
-
-        var data: Foundation.Data, response: Foundation.URLResponse
         
-        do {
-            (data, response) = try await session.data(from: url)
-            
-        } catch let error as URLError {
-            throw .urlError(error)
-            
-        } catch {
-            throw .otherError(error)
-        }
+        let (data, response) = try await session.data(from: url)
         
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
             throw NetworkError.invalidStatusCode(-1)
@@ -41,14 +31,7 @@ struct DefaultNetworkService: NetworkService {
             throw NetworkError.invalidStatusCode(statusCode)
         }
         
-        do {
-            return try JSONDecoder().decode(T.self, from: data)
-            
-        } catch let error as DecodingError {
-            throw .failedDecoding(error)
-        } catch {
-            throw .otherError(error)
-        }
+        return try JSONDecoder().decode(T.self, from: data)
     }
     
     private func buildURL(from endPoint: EndPoint) -> URL? {
