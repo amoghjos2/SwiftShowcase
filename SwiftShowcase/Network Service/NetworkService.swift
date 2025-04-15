@@ -19,9 +19,9 @@ protocol EndPoint {
 }
 
 enum NetworkError: Error {
-    case invalidEndPoint
-    case networkError(String)
-    case invalidReponseCode
-    case invalidData
-    case failedDecoding
+    case invalidEndPoint(EndPoint)
+    case urlError(URLError)
+    case invalidStatusCode(Int)
+    case failedDecoding(DecodingError)
+    case otherError(Error)
 }

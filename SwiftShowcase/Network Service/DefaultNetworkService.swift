@@ -16,15 +16,27 @@ struct DefaultNetworkService: NetworkService {
     }
     
     func request<T: Decodable>(at endPoint: EndPoint) async throws(NetworkError) -> T {
+        let url = try buildURL(from: endPoint)
+        
         do {
-            let url = try buildURL(from: endPoint)
             let (data, response) = try await session.data(from: url)
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                throw NetworkError.invalidStatusCode(-1)
+            }
+            
+            guard (200...299).contains(statusCode) else {
+                throw NetworkError.invalidStatusCode(statusCode)
+            }
+            
             return try JSONDecoder().decode(T.self, from: data)
             
-        } catch let error as NetworkError {
-            throw error
+        } catch let error as URLError {
+            throw .urlError(error)
+        } catch let error as DecodingError {
+            throw .failedDecoding(error)
         } catch {
-            throw .failedDecoding
+            throw .otherError(error)
         }
     }
     
@@ -34,7 +46,7 @@ struct DefaultNetworkService: NetworkService {
         urlComponent.host = endPoint.host
         urlComponent.path = endPoint.path
         urlComponent.queryItems = endPoint.queryItems
-        guard let url = urlComponent.url else { throw .invalidEndPoint }
+        guard let url = urlComponent.url else { throw .invalidEndPoint(endPoint) }
         return url
     }
 }
