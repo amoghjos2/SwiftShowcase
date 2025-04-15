@@ -16,23 +16,34 @@ struct DefaultNetworkService: NetworkService {
     }
     
     func request<T: Decodable>(at endPoint: EndPoint) async throws(NetworkError) -> T {
-        let url = try buildURL(from: endPoint)
+    
+        guard let url = buildURL(from: endPoint) else {
+            throw NetworkError.invalidEndPoint(endPoint)
+        }
+
+        var data: Data, response: URLResponse
         
         do {
-            let (data, response) = try await session.data(from: url)
-            
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
-                throw NetworkError.invalidStatusCode(-1)
-            }
-            
-            guard (200...299).contains(statusCode) else {
-                throw NetworkError.invalidStatusCode(statusCode)
-            }
-            
-            return try JSONDecoder().decode(T.self, from: data)
+            (data, response) = try await session.data(from: url)
             
         } catch let error as URLError {
             throw .urlError(error)
+            
+        } catch {
+            throw .otherError(error)
+        }
+        
+        guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+            throw NetworkError.invalidStatusCode(-1)
+        }
+        
+        guard (200...299).contains(statusCode) else {
+            throw NetworkError.invalidStatusCode(statusCode)
+        }
+        
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+            
         } catch let error as DecodingError {
             throw .failedDecoding(error)
         } catch {
@@ -40,13 +51,13 @@ struct DefaultNetworkService: NetworkService {
         }
     }
     
-    private func buildURL(from endPoint: EndPoint) throws(NetworkError) -> URL {
+    private func buildURL(from endPoint: EndPoint) -> URL? {
         var urlComponent = URLComponents()
         urlComponent.scheme = endPoint.scheme
         urlComponent.host = endPoint.host
         urlComponent.path = endPoint.path
         urlComponent.queryItems = endPoint.queryItems
-        guard let url = urlComponent.url else { throw .invalidEndPoint(endPoint) }
+        guard let url = urlComponent.url else { return nil }
         return url
     }
 }
