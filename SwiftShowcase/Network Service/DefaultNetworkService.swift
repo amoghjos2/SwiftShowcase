@@ -21,7 +21,7 @@ struct DefaultNetworkService: NetworkService {
             throw NetworkError.invalidEndPoint(endPoint)
         }
 
-        var data: Data, response: URLResponse
+        var data: Foundation.Data, response: Foundation.URLResponse
         
         do {
             (data, response) = try await session.data(from: url)

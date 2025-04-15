@@ -14,6 +14,13 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("let's do it!")
+                .onAppear {
+                    Task {
+                        let data = try await DefaultSpeciesListService().speciesList(for: 1)
+                        print(data)
+
+                    }
+                }
         }
         .padding()
     }

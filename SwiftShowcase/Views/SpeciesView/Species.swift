@@ -7,12 +7,8 @@
 
 import Foundation
 
-struct Species {
-    let species: [Specie]
-}
-
 struct Specie {
-    let id: String
+    let id: Int
     let name: String
-    let imageURL: String
+    let imageURL: String?
 }
