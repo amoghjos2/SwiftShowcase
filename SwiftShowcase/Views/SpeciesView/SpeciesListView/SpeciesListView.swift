@@ -24,8 +24,11 @@ struct SpeciesListView: View {
             List {
                 ForEach(species, id: \.id) { specie in
                     SpecieView(name: specie.name)
+                        .listRowSeparator(.hidden)
                 }
             }
+            .listStyle(.plain)
+
             
         case .error(let error):
             Text("The app ran into the following error: \(error.localizedDescription)")
