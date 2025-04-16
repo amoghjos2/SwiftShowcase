@@ -13,12 +13,8 @@ struct SpecieView: View {
     var body: some View {
         
         HStack {
-            Image(systemName: "leaf")
-                .resizable()
-                .frame(width: 30, height: 30)
-                .padding()
             Text(name)
-                .font(.title)
+                .font(.headline)
             
             Spacer()
             
