@@ -19,7 +19,6 @@ protocol SpeciesListViewModel: ObservableObject {
     func loadSpecies() async
 }
 
-@MainActor
 class DefaultSpeciesListViewModel: SpeciesListViewModel {
     
     let speciesListService: SpeciesListService
@@ -30,6 +29,7 @@ class DefaultSpeciesListViewModel: SpeciesListViewModel {
     
     @Published var speciesListState: SpeciesListState = .loading
         
+    @MainActor
     func loadSpecies() async {
         do {
             let species = try await speciesListService.speciesList(for: 0)
