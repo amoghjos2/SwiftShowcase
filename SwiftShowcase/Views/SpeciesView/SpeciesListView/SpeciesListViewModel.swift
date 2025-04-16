@@ -15,18 +15,27 @@ enum SpeciesListState {
 
 protocol SpeciesListViewModel: ObservableObject {
     var speciesListState: SpeciesListState { get set }
-    
-    var species: [Specie] { get set }
-    
-    func loadSpecies()
+        
+    func loadSpecies() async
 }
 
+@MainActor
 class DefaultSpeciesListViewModel: SpeciesListViewModel {
+    
+    let speciesListService: SpeciesListService
+    
+    init(speciesListService: SpeciesListService) {
+        self.speciesListService = speciesListService
+    }
+    
     @Published var speciesListState: SpeciesListState = .loading
-    
-    var species = [Specie]()
-    
-    func loadSpecies() {
         
+    func loadSpecies() async {
+        do {
+            let species = try await speciesListService.speciesList(for: 0)
+            speciesListState = .loaded(species)
+        } catch {
+            speciesListState = .error(error)
+        }
     }
 }
