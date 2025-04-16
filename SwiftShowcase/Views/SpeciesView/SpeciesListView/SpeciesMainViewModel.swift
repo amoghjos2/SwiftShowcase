@@ -15,7 +15,7 @@ class SpeciesMainViewModel: ObservableObject {
         self.speciesListService = speciesListService
     }
     
-    @Published var speciesListState: LoadingState<[Specie]> = .loading
+    @Published var speciesListState: LoadingState = .loading
     @Published var species = [Specie]()
     @Published var isLoadingMoreSpecies: Bool = false
     

@@ -7,10 +7,14 @@
 
 import SwiftUI
 
+protocol Contract {
+    
+}
+
 struct SpeciesListView: View {
     @Binding var species: [Specie]
-    @Binding var isLoading: Bool
-    
+    @Binding var shouldShowProgressIndicator: Bool
+        
     var body: some View {
             List {
                 ForEach(species, id: \.id) { specie in
@@ -19,7 +23,7 @@ struct SpeciesListView: View {
 
                 }
                 
-                if isLoading {
+                if shouldShowProgressIndicator {
                     ProgressViewCell()
                         .listRowSeparator(.hidden)
                 }
@@ -30,13 +34,8 @@ struct SpeciesListView: View {
 
 fileprivate struct ProgressViewCell: View {
     var body: some View {
-        HStack {
-            Spacer()
-            
-            ProgressView()
-
-            Spacer()
-        }
+        ProgressView()
+            .frame(maxWidth: .infinity)
     }
 }
 
@@ -44,5 +43,5 @@ fileprivate struct ProgressViewCell: View {
     SpeciesListView(species: .constant([Specie(id: 12,
                                                name: "Random Specie",
                                                imageURL: "")]),
-                    isLoading: .constant(true))
+                    shouldShowProgressIndicator: .constant(true))
 }

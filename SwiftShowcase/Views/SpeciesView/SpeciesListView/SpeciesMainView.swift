@@ -22,7 +22,7 @@ struct SpeciesMainView: View {
             
         case .loaded:
             SpeciesListView(species: $viewModel.species,
-                            isLoading: $viewModel.isLoadingMoreSpecies)
+                            shouldShowProgressIndicator: $viewModel.isLoadingMoreSpecies)
 
             
         case .error(let error):

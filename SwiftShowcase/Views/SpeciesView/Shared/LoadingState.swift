@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LoadingState<T>{
+enum LoadingState {
     case loading
     case loaded
     case error(Error)
