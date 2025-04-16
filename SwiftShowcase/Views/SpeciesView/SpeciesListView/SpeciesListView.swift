@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct SpeciesListView: View {
+    
+    @StateObject var viewModel = SpeciesListViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        switch viewModel.speciesListState {
+            
+        case .loading:
+            ProgressView()
+                .task {
+                    await viewModel.loadSpecies()
+                }
+            
+        case .loaded(let species):
+            
+            Text("species: \(species)")
+            
+        case .error(let error):
+            Text("The app ran into the following error: \(error.localizedDescription)")
+        }
     }
 }
 

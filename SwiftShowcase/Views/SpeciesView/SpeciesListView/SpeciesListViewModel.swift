@@ -7,11 +7,11 @@
 
 import Foundation
 
-class DefaultSpeciesListViewModel: SpeciesListViewModel {
+class SpeciesListViewModel: ObservableObject {
     
     let speciesListService: SpeciesListService
     
-    init(speciesListService: SpeciesListService) {
+    init(speciesListService: SpeciesListService = DefaultSpeciesListService()) {
         self.speciesListService = speciesListService
     }
     
