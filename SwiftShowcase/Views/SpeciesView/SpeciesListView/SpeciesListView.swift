@@ -21,8 +21,11 @@ struct SpeciesListView: View {
                 }
             
         case .loaded(let species):
-            
-            Text("species: \(species)")
+            List {
+                ForEach(species, id: \.id) { specie in
+                    SpecieView(name: specie.name)
+                }
+            }
             
         case .error(let error):
             Text("The app ran into the following error: \(error.localizedDescription)")
