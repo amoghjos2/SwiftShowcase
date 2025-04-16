@@ -55,7 +55,7 @@ struct DefaultSpeciesListService: SpeciesListService {
     }
 
     private struct DefaultImage: Decodable {
-        let thumbnail: String
+        let thumbnail: String?
     }
 
 }

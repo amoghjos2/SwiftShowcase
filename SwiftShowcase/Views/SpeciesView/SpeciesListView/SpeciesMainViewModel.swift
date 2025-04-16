@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SpeciesListViewModel: ObservableObject {
+class SpeciesMainViewModel: ObservableObject {
     
     let speciesListService: SpeciesListService
     
@@ -16,12 +16,20 @@ class SpeciesListViewModel: ObservableObject {
     }
     
     @Published var speciesListState: LoadingState<[Specie]> = .loading
+    @Published var species = [Specie]()
+    @Published var isLoadingMoreSpecies: Bool = false
+    
+    private var currentPage = 1
+    private var lastPage = 1
 
     @MainActor
     func loadSpecies() async {
         do {
-            let species = try await speciesListService.speciesList(for: 0)
-            speciesListState = .loaded(species)
+            isLoadingMoreSpecies = true
+            let species = try await speciesListService.speciesList(for: 6)
+            speciesListState = .loaded
+            self.species = species
+            isLoadingMoreSpecies = false
         } catch {
             speciesListState = .error(error)
         }

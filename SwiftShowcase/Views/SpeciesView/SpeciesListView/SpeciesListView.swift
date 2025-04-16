@@ -2,40 +2,47 @@
 //  SpeciesListView.swift
 //  SwiftShowcase
 //
-//  Created by Amogh Josh on 4/15/25.
+//  Created by Amogh Josh on 4/16/25.
 //
 
 import SwiftUI
 
 struct SpeciesListView: View {
-    
-    @StateObject var viewModel = SpeciesListViewModel()
+    @Binding var species: [Specie]
+    @Binding var isLoading: Bool
     
     var body: some View {
-        switch viewModel.speciesListState {
-            
-        case .loading:
-            ProgressView()
-                .task {
-                    await viewModel.loadSpecies()
-                }
-            
-        case .loaded(let species):
             List {
                 ForEach(species, id: \.id) { specie in
                     SpecieView(name: specie.name)
                         .listRowSeparator(.hidden)
+
+                }
+                
+                if isLoading {
+                    ProgressViewCell()
+                        .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)
+    }
+}
 
+fileprivate struct ProgressViewCell: View {
+    var body: some View {
+        HStack {
+            Spacer()
             
-        case .error(let error):
-            Text("The app ran into the following error: \(error.localizedDescription)")
+            ProgressView()
+
+            Spacer()
         }
     }
 }
 
 #Preview {
-    SpeciesListView()
+    SpeciesListView(species: .constant([Specie(id: 12,
+                                               name: "Random Specie",
+                                               imageURL: "")]),
+                    isLoading: .constant(true))
 }
