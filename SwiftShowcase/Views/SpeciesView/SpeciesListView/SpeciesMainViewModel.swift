@@ -22,6 +22,7 @@ class SpeciesMainViewModel: ObservableObject {
     private var currentPage = 1
     private var lastPage = 1
     
+    @MainActor
     func setup() async {
         do {
             lastPage = try await speciesService.specieLastPage()
@@ -35,7 +36,7 @@ class SpeciesMainViewModel: ObservableObject {
     func loadNextSpecies() async {
         do {
             let species = try await speciesService.speciesList(for: currentPage)
-            self.species = species
+            self.species += species
             speciesListState = .loaded
             currentPage += 1
             canLoadMoreSpecies = currentPage <= lastPage
