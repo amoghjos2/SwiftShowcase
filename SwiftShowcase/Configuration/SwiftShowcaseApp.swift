@@ -11,7 +11,8 @@ import SwiftUI
 struct SwiftShowcaseApp: App {
     var body: some Scene {
         WindowGroup {
-            SpeciesMainView(factory: DefaultSpeciesFactory())
+//            SpeciesMainView(factory: DefaultSpeciesFactory())
+            DefaultSpecieDetailFactory().specieDetailView(for: 2)
         }
     }
 }

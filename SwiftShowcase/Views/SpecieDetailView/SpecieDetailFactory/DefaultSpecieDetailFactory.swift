@@ -19,4 +19,9 @@ struct DefaultSpecieDetailFactory: SpecieDetailFactory {
         return SpecieDetailViewModel(specieID: specieID,
                                      specieDetailService: specieDetailService)
     }
+    
+    func specieDetailView(with factory: SpecieDetailFactory = DefaultSpecieDetailFactory(),
+                          for specieID: Int) -> SpecieDetailView {
+        return SpecieDetailView(factory, with: specieID)
+    }
 }

@@ -10,4 +10,6 @@ import Foundation
 protocol SpecieDetailFactory {
     func specieDetailService(with networkService: NetworkService) -> SpecieDetailService
     func specieDetailViewModel(for specieID: Int, with specieDetailService: SpecieDetailService?) -> SpecieDetailViewModel
+    func specieDetailView(with factory: SpecieDetailFactory,
+                          for specieID: Int) -> SpecieDetailView
 }
