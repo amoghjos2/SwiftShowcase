@@ -9,7 +9,13 @@ import Foundation
 
 class SpeciesMainViewModel: ObservableObject {
         
-    @Published var speciesListState: LoadingState = .loading
+    enum SpeciesMainViewState {
+        case loading
+        case loaded
+        case error(Error)
+    }
+    
+    @Published var speciesMainViewState: SpeciesMainViewState = .loading
     @Published var species = [Specie]()
     @Published var canLoadMoreSpecies = true
     
@@ -28,7 +34,7 @@ class SpeciesMainViewModel: ObservableObject {
             lastPage = try await speciesService.specieLastPage()
             await loadNextSpecies()
         } catch {
-            speciesListState = .error(error)
+            speciesMainViewState = .error(error)
         }
     }
 
@@ -37,12 +43,12 @@ class SpeciesMainViewModel: ObservableObject {
         do {
             let species = try await speciesService.speciesList(for: currentPage)
             self.species += species
-            speciesListState = .loaded
+            speciesMainViewState = .loaded
             currentPage += 1
             canLoadMoreSpecies = currentPage <= lastPage
             
         } catch {
-            speciesListState = .error(error)
+            speciesMainViewState = .error(error)
         }
     }
 }

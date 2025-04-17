@@ -19,7 +19,7 @@ struct SpeciesMainView: View {
     }
     
     var body: some View {
-        switch viewModel.speciesListState {
+        switch viewModel.speciesMainViewState {
             
         case .loading:
             ProgressView()
