@@ -9,10 +9,10 @@ import Foundation
 
 class SpeciesMainViewModel: ObservableObject {
     
-    let speciesListService: SpeciesService
+    let speciesService: SpeciesService
     
-    init(speciesListService: SpeciesService = DefaultSpeciesService()) {
-        self.speciesListService = speciesListService
+    init(speciesService: SpeciesService = DefaultSpeciesService()) {
+        self.speciesService = speciesService
     }
     
     @Published var speciesListState: LoadingState = .loading
@@ -21,11 +21,20 @@ class SpeciesMainViewModel: ObservableObject {
     
     private var currentPage = 1
     private var lastPage = 1
+    
+    func setup() async {
+        do {
+            lastPage = try await speciesService.specieLastPage()
+            await loadNextSpecies()
+        } catch {
+            speciesListState = .error(error)
+        }
+    }
 
     @MainActor
     func loadNextSpecies() async {
         do {
-            let species = try await speciesListService.speciesList(for: currentPage)
+            let species = try await speciesService.speciesList(for: currentPage)
             self.species = species
             speciesListState = .loaded
             currentPage += 1

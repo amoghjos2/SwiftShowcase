@@ -9,4 +9,5 @@ import Foundation
 
 protocol SpeciesService {
     func speciesList(for page: Int) async throws -> [Specie]
+    func specieLastPage() async throws -> Int
 }

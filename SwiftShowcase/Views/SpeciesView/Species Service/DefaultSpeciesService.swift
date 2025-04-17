@@ -8,7 +8,7 @@
 import Foundation
 
 struct DefaultSpeciesService: SpeciesService {
-    
+
     private let networkService: NetworkService
     
     init(networkService: NetworkService = DefaultNetworkService()) {
@@ -31,6 +31,11 @@ struct DefaultSpeciesService: SpeciesService {
         return species
     }
     
+    func specieLastPage() async throws -> Int {
+        let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: "1"))
+        return data.last_page
+    }
+    
     private struct SpeciesListEndPoint: SpeciesEndPoint {
         
         let page: String
@@ -46,6 +51,7 @@ struct DefaultSpeciesService: SpeciesService {
     
     private struct Data: Decodable {
         let data: [SpecieDetail]
+        let last_page: Int
     }
 
     private struct SpecieDetail: Decodable {

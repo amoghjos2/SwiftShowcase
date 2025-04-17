@@ -34,10 +34,3 @@ fileprivate struct ProgressViewCell: View {
             .frame(maxWidth: .infinity)
     }
 }
-
-//#Preview {
-//    SpeciesListView(species: .constant([Specie(id: 12,
-//                                               name: "Random Specie",
-//                                               imageURL: "")]),
-//                    shouldShowProgressIndicator: .constant(true))
-//}

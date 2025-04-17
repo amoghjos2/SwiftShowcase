@@ -17,7 +17,7 @@ struct SpeciesMainView: View {
         case .loading:
             ProgressView()
                 .task {
-                    await viewModel.loadNextSpecies()
+                    await viewModel.setup()
                 }
             
         case .loaded:
