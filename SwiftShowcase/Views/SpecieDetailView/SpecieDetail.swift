@@ -22,3 +22,9 @@ struct SpecieDetail: Decodable {
         case watering
     }
 }
+
+let demoSpecieDetail = SpecieDetail(name: "Candicans White Fir",
+                                    type: "tree",
+                                    dimension: "Height:  30 feet",
+                                    cycle: "Perennial",
+                                    watering: "Average")

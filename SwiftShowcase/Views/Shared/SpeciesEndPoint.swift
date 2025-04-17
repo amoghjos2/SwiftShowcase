@@ -16,6 +16,6 @@ extension EndPoint where Self: SpeciesEndPoint {
     
     var baseQueryItems: [URLQueryItem] {
         #warning("Store API key more securly")
-        return [URLQueryItem(name: "key", value: "sk-sENu67fd8330d24c99789")]
+        return [URLQueryItem(name: "key", value: "sk-9bxy68008c5bc63fd9845")]
     }
 }

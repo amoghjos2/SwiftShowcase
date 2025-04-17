@@ -13,23 +13,30 @@ struct DefaultSpeciesService: SpeciesService {
     
     func speciesList(for page: Int) async throws -> [Specie] {
 
-        let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: String(page)))
-        
-        var species = [Specie]()
-        for detail in data.data {
-            let specie = Specie(id: detail.id,
-                                name: detail.common_name,
-                                imageURL: detail.default_image?.thumbnail)
-            
-            species.append(specie)
-        }
-        
-        return species
+        /*
+         let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: String(page)))
+         
+         var species = [Specie]()
+         for detail in data.data {
+             let specie = Specie(id: detail.id,
+                                 name: detail.common_name,
+                                 imageURL: detail.default_image?.thumbnail)
+             
+             species.append(specie)
+         }
+         
+         return species
+         */
+        sleep(1)
+        return demoSpecies
     }
     
     func specieLastPage() async throws -> Int {
+        /*
         let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: "1"))
         return data.last_page
+         */
+        return 10
     }
     
     private struct SpeciesListEndPoint: SpeciesEndPoint {

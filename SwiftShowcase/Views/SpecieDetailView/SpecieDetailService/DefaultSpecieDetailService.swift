@@ -11,7 +11,8 @@ struct DefaultSpecieDetailService: SpecieDetailService {
     let networkService: NetworkService
     
     func specieDetail(for specieID: Int) async throws -> SpecieDetail {
-        return try await networkService.request(at: SpecieDetailEndPoint(id: specieID))
+//        return try await networkService.request(at: SpecieDetailEndPoint(id: specieID))
+        return demoSpecieDetail
     }
     
     private struct SpecieDetailEndPoint: SpeciesEndPoint {
