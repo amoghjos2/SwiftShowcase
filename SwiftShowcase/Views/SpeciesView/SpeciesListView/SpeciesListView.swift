@@ -7,14 +7,10 @@
 
 import SwiftUI
 
-protocol Contract {
-    
-}
-
 struct SpeciesListView: View {
     @Binding var species: [Specie]
     @Binding var shouldShowProgressIndicator: Bool
-        
+            
     var body: some View {
             List {
                 ForEach(species, id: \.id) { specie in
@@ -39,9 +35,9 @@ fileprivate struct ProgressViewCell: View {
     }
 }
 
-#Preview {
-    SpeciesListView(species: .constant([Specie(id: 12,
-                                               name: "Random Specie",
-                                               imageURL: "")]),
-                    shouldShowProgressIndicator: .constant(true))
-}
+//#Preview {
+//    SpeciesListView(species: .constant([Specie(id: 12,
+//                                               name: "Random Specie",
+//                                               imageURL: "")]),
+//                    shouldShowProgressIndicator: .constant(true))
+//}
