@@ -8,8 +8,8 @@
 import Foundation
 
 struct DefaultSpecieDetailFactory: SpecieDetailFactoryProtocol {
-    func specieDetailService(for specieId: Int,
-                             with networkService: NetworkService = DefaultNetworkService()) -> SpecieDetailServiceProtocol {
+    
+    func specieDetailService(with networkService: NetworkService = DefaultNetworkService()) -> SpecieDetailServiceProtocol {
         return DefaultSpecieDetailService(networkService: networkService)
     }
 }
