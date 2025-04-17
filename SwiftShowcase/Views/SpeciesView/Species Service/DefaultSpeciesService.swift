@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DefaultSpeciesListService: SpeciesListService {
+struct DefaultSpeciesService: SpeciesService {
     
     private let networkService: NetworkService
     

@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol SpeciesListService {
+protocol SpeciesService {
     func speciesList(for page: Int) async throws -> [Specie]
 }

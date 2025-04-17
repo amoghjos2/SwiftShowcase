@@ -9,9 +9,9 @@ import Foundation
 
 class SpeciesMainViewModel: ObservableObject {
     
-    let speciesListService: SpeciesListService
+    let speciesListService: SpeciesService
     
-    init(speciesListService: SpeciesListService = DefaultSpeciesListService()) {
+    init(speciesListService: SpeciesService = DefaultSpeciesService()) {
         self.speciesListService = speciesListService
     }
     
