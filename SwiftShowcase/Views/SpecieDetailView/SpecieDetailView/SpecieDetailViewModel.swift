@@ -17,10 +17,10 @@ class SpecieDetailViewModel: ObservableObject {
     
     @Published var loadingState: SpecieDetailLoadingState = .loading
         
-    let specieDetailService: SpecieDetailServiceProtocol
     let specieID: Int
+    let specieDetailService: SpecieDetailService
     
-    init(specieDetailService: SpecieDetailServiceProtocol, specieID: Int) {
+    init(specieID: Int, specieDetailService: SpecieDetailService) {
         self.specieDetailService = specieDetailService
         self.specieID = specieID
     }

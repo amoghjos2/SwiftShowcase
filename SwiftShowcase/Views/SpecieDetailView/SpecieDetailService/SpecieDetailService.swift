@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol SpecieDetailServiceProtocol {
+protocol SpecieDetailService {
     func specieDetail(for specieID: Int) async throws -> SpecieDetail
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DefaultSpecieDetailService: SpecieDetailServiceProtocol {
+struct DefaultSpecieDetailService: SpecieDetailService {
     let networkService: NetworkService
     
     func specieDetail(for specieID: Int) async throws -> SpecieDetail {
