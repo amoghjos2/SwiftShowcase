@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct SpeciesMainView: View {
-    
-    @StateObject var viewModel = SpeciesMainViewModel()
+        
+    @StateObject var viewModel: SpeciesMainViewModel
+
+    let factory: SpeciesFactoryProtocol
+
+    init(factory: SpeciesFactoryProtocol) {
+        self.factory = factory
+        _viewModel = StateObject(wrappedValue: factory.speciesMainViewModel(with: nil))
+    }
     
     var body: some View {
         switch viewModel.speciesListState {
@@ -30,5 +37,5 @@ struct SpeciesMainView: View {
 }
 
 #Preview {
-    SpeciesMainView()
+    SpeciesMainView(factory: DefaultSpeciesFactory())
 }

@@ -9,11 +9,7 @@ import Foundation
 
 struct DefaultSpeciesService: SpeciesService {
 
-    private let networkService: NetworkService
-    
-    init(networkService: NetworkService = DefaultNetworkService()) {
-        self.networkService = networkService
-    }
+    let networkService: NetworkService
     
     func speciesList(for page: Int) async throws -> [Specie] {
 

@@ -21,7 +21,7 @@ struct SpeciesListView: View {
             if viewModel.canLoadMoreSpecies {
                 
                 ProgressView()
-                    .id(viewModel.species.count)
+                    .id(viewModel.species.count) //.id is temporary fix to resolve SwiftUI bug of ProgressView() rendering issue in List
                     .frame(maxWidth: .infinity)
                     .listRowSeparator(.hidden)
                     .onAppear {

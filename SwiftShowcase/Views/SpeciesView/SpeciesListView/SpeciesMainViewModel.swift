@@ -8,19 +8,19 @@
 import Foundation
 
 class SpeciesMainViewModel: ObservableObject {
-    
-    let speciesService: SpeciesService
-    
-    init(speciesService: SpeciesService = DefaultSpeciesService()) {
-        self.speciesService = speciesService
-    }
-    
+        
     @Published var speciesListState: LoadingState = .loading
     @Published var species = [Specie]()
     @Published var canLoadMoreSpecies = true
     
     private var currentPage = 1
     private var lastPage = 1
+    
+    let speciesService: SpeciesService
+    
+    init(with speciesService: SpeciesService) {
+        self.speciesService = speciesService
+    }
     
     @MainActor
     func setup() async {
