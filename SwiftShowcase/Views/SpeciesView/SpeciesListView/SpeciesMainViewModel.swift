@@ -17,19 +17,20 @@ class SpeciesMainViewModel: ObservableObject {
     
     @Published var speciesListState: LoadingState = .loading
     @Published var species = [Specie]()
-    @Published var isLoadingMoreSpecies: Bool = false
+    @Published var canLoadMoreSpecies = true
     
     private var currentPage = 1
     private var lastPage = 1
 
     @MainActor
-    func loadSpecies() async {
+    func loadNextSpecies() async {
         do {
-            isLoadingMoreSpecies = true
-            let species = try await speciesListService.speciesList(for: 6)
-            speciesListState = .loaded
+            let species = try await speciesListService.speciesList(for: currentPage)
             self.species = species
-            isLoadingMoreSpecies = false
+            speciesListState = .loaded
+            currentPage += 1
+            canLoadMoreSpecies = currentPage <= lastPage
+            
         } catch {
             speciesListState = .error(error)
         }

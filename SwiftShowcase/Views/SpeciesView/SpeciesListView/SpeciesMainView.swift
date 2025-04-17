@@ -17,13 +17,11 @@ struct SpeciesMainView: View {
         case .loading:
             ProgressView()
                 .task {
-                    await viewModel.loadSpecies()
+                    await viewModel.loadNextSpecies()
                 }
             
         case .loaded:
-            SpeciesListView(species: $viewModel.species,
-                            shouldShowProgressIndicator: $viewModel.isLoadingMoreSpecies)
-
+            SpeciesListView(viewModel: viewModel)
             
         case .error(let error):
             Text("The app ran into the following error: \(error.localizedDescription)")

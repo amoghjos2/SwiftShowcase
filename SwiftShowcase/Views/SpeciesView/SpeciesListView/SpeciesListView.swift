@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct SpeciesListView: View {
-    @Binding var species: [Specie]
-    @Binding var shouldShowProgressIndicator: Bool
+    
+    @ObservedObject var viewModel: SpeciesMainViewModel
             
     var body: some View {
             List {
-                ForEach(species, id: \.id) { specie in
+                ForEach(viewModel.species, id: \.id) { specie in
                     SpecieView(name: specie.name)
                         .listRowSeparator(.hidden)
 
                 }
                 
-                if shouldShowProgressIndicator {
+                if viewModel.canLoadMoreSpecies {
                     ProgressViewCell()
                         .listRowSeparator(.hidden)
                 }
