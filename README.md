@@ -1,5 +1,4 @@
 # SwiftShowcase
-This is a side project developed to showcase my iOS development skills through a simple, clean, and functional application.
 
 ## Requirements
 
