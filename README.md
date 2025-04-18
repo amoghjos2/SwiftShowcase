@@ -11,3 +11,7 @@ This is a side project developed to showcase my iOS development skills through a
 ## Solution: 🚧 In Progress
  ![system design](https://i.ibb.co/35jVVR62/Screenshot-2025-04-16-at-2-03-33-AM.png)
 
+### TODO:
+1. Understand Factory Pattern more and implement it correctly
+2. Look into coodordinator pattern more
+3. Make changes which Andre suggested
