@@ -12,26 +12,32 @@ struct SpeciesListView: View {
     @ObservedObject var viewModel: SpeciesMainViewModel
     
     var body: some View {
-        List {
-            ForEach(viewModel.species, id: \.id) { specie in
-                SpecieView(name: specie.name)
-                    .listRowSeparator(.hidden)
-            }
-            
-            if viewModel.canLoadMoreSpecies {
-                
-                ProgressView()
-                    .id(viewModel.species.count) //.id is temporary fix to resolve SwiftUI bug of ProgressView() rendering issue in List
-                    .frame(maxWidth: .infinity)
-                    .listRowSeparator(.hidden)
-                    .onAppear {
-                        Task {
-                            await viewModel.loadNextSpecies()
-                        }
+        NavigationStack {
+            List {
+                ForEach(viewModel.species, id: \.id) { specie in
+                    NavigationLink(value: specie) {
+                        SpecieView(name: specie.name)
                     }
+                    .listRowSeparator(.hidden)
+                }
+                
+                if viewModel.canLoadMoreSpecies {
+                    
+                    ProgressView()
+                        .id(viewModel.species.count) //.id is temporary fix to resolve SwiftUI bug of ProgressView() rendering issue in List
+                        .frame(maxWidth: .infinity)
+                        .listRowSeparator(.hidden)
+                        .onAppear {
+                            Task {
+                                await viewModel.loadNextSpecies()
+                            }
+                        }
+                }
+            }
+            .listStyle(.plain)
+            .navigationDestination(for: Specie.self) { specie in
+                SwiftShowcaseFactory.specieDetailView(for: specie.id)
             }
         }
-        
-        .listStyle(.plain)
     }
 }

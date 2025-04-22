@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Specie {
+struct Specie: Hashable {
     let id: Int
     let name: String
     let imageURL: String?
