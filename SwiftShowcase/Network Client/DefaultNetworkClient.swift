@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct DefaultNetworkService: NetworkService {
+struct DefaultNetworkClient: NetworkClient {
     
     private let session: URLSession
     
-    init(session: URLSession = .shared) {
+    init(session: URLSession) {
         self.session = session
     }
     

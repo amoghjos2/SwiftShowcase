@@ -9,14 +9,7 @@ import SwiftUI
 
 struct SpeciesMainView: View {
         
-    @StateObject var viewModel: SpeciesMainViewModel
-
-    let factory: SpeciesFactoryProtocol
-
-    init(factory: SpeciesFactoryProtocol) {
-        self.factory = factory
-        _viewModel = StateObject(wrappedValue: factory.speciesMainViewModel(with: nil))
-    }
+    @ObservedObject var viewModel: SpeciesMainViewModel
     
     var body: some View {
         switch viewModel.speciesMainViewState {
@@ -34,8 +27,4 @@ struct SpeciesMainView: View {
             Text("The app ran into the following error: \(error.localizedDescription)")
         }
     }
-}
-
-#Preview {
-    SpeciesMainView(factory: DefaultSpeciesFactory())
 }

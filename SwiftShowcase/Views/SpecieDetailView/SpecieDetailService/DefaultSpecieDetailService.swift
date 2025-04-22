@@ -8,11 +8,10 @@
 import Foundation
 
 struct DefaultSpecieDetailService: SpecieDetailService {
-    let networkService: NetworkService
+    let networkService: NetworkClient
     
     func specieDetail(for specieID: Int) async throws -> SpecieDetail {
         return try await networkService.request(at: SpecieDetailEndPoint(id: specieID))
-//        return demoSpecieDetail
     }
     
     private struct SpecieDetailEndPoint: SpeciesEndPoint {

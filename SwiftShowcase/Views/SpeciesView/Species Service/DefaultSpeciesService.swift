@@ -9,7 +9,7 @@ import Foundation
 
 struct DefaultSpeciesService: SpeciesService {
 
-    let networkService: NetworkService
+    let networkService: NetworkClient
     
     func speciesList(for page: Int) async throws -> [Specie] {
 

@@ -12,7 +12,7 @@ struct SwiftShowcaseApp: App {
     var body: some Scene {
         WindowGroup {
 //            SpeciesMainView(factory: DefaultSpeciesFactory())
-            DefaultSpecieDetailFactory().specieDetailView(for: 2)
+//            DefaultSpecieDetailFactory().specieDetailView(for: 2)
         }
     }
 }

@@ -9,12 +9,7 @@ import SwiftUI
 
 struct SpecieDetailView: View {
     
-    @StateObject private var viewModel: SpecieDetailViewModel
-    
-    init(_ factory: SpecieDetailFactory, with specieID: Int) {
-        let specieDetailViewModel = factory.specieDetailViewModel(for: specieID, with: nil)
-        _viewModel = StateObject(wrappedValue: specieDetailViewModel)
-    }
+    @ObservedObject private var viewModel: SpecieDetailViewModel
     
     var body: some View {
         
@@ -70,8 +65,4 @@ struct SpecieDetailCell: View {
             Text(value)
         }
     }
-}
-
-#Preview {
-    SpecieDetailView(DefaultSpecieDetailFactory(), with: 3)
 }
