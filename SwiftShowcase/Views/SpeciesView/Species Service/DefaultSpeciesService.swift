@@ -26,17 +26,12 @@ struct DefaultSpeciesService: SpeciesService {
          }
          
          return species
-         
-//        sleep(1)
-//        return demoSpecies
     }
     
     func specieLastPage() async throws -> Int {
         
         let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: "1"))
         return data.last_page
-         
-//        return 10
     }
     
     private struct SpeciesListEndPoint: SpeciesEndPoint {

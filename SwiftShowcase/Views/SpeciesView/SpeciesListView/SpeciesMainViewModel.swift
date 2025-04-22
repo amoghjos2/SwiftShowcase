@@ -24,7 +24,7 @@ class SpeciesMainViewModel: ObservableObject {
     
     let speciesService: SpeciesService
     
-    init(with speciesService: SpeciesService) {
+    init(speciesService: SpeciesService) {
         self.speciesService = speciesService
     }
     

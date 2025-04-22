@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SpecieDetailView: View {
     
-    @ObservedObject private var viewModel: SpecieDetailViewModel
+    @ObservedObject var viewModel: SpecieDetailViewModel
     
     var body: some View {
         
