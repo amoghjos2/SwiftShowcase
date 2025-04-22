@@ -32,15 +32,12 @@ struct SwiftShowcaseFactory {
     }
     
     static func specieDetailViewModel(for specieID: Int,
-                                       specieDetailService: SpecieDetailService = specieDetailService()) -> SpecieDetailViewModel {
+                                      specieDetailService: SpecieDetailService = specieDetailService()) -> SpecieDetailViewModel {
         return SpecieDetailViewModel(specieID: specieID, specieDetailService: specieDetailService)
     }
     
-    static func specieDetailView(for specieID: Int,
-                                 viewModel: SpecieDetailViewModel? = nil) -> SpecieDetailView {
-        
-        let viewModel = viewModel ?? specieDetailViewModel(for: specieID)
-        
-        return SpecieDetailView(viewModel: viewModel)
+    static func specieDetailView(for specieID: Int) -> SpecieDetailView {
+        let vm = specieDetailViewModel(for: specieID)
+        return SpecieDetailView(viewModel: vm)
     }
 }
