@@ -24,11 +24,11 @@ struct DefaultNetworkClient: NetworkClient {
         let (data, response) = try await session.data(from: url)
         
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
-            throw NetworkError.invalidStatusCode(-1)
+            throw NetworkError.unexpectedStatusCode(-1)
         }
         
         guard (200...299).contains(statusCode) else {
-            throw NetworkError.invalidStatusCode(statusCode)
+            throw NetworkError.unexpectedStatusCode(statusCode)
         }
         
         return try JSONDecoder().decode(T.self, from: data)

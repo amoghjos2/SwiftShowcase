@@ -20,5 +20,5 @@ protocol EndPoint {
 
 enum NetworkError: Error {
     case invalidEndPoint(EndPoint)
-    case invalidStatusCode(Int)
+    case unexpectedStatusCode(Int)
 }
