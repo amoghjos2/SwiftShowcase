@@ -11,12 +11,16 @@ struct SpeciesListView: View {
     
     @ObservedObject var viewModel: SpeciesMainViewModel
     
+    @EnvironmentObject var coordinator: Coordinator
+    
     var body: some View {
-        NavigationStack {
             List {
                 ForEach(viewModel.species, id: \.id) { specie in
                     SpecieView(name: specie.name)
                         .listRowSeparator(.hidden)
+                        .onTapGesture {
+                            coordinator.didTapSpecie(specie)
+                        }
                 }
                 
                 if viewModel.canLoadMoreSpecies {
@@ -33,7 +37,7 @@ struct SpeciesListView: View {
                 }
             }
             .listStyle(.plain)
-        }
+        
     }
 }
 

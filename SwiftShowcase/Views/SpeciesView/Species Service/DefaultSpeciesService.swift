@@ -13,7 +13,6 @@ struct DefaultSpeciesService: SpeciesService {
     
     func speciesList(for page: Int) async throws -> [Specie] {
 
-        /*
          let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: String(page)))
          
          var species = [Specie]()
@@ -26,17 +25,16 @@ struct DefaultSpeciesService: SpeciesService {
          }
          
          return species
-         */
-        return demoSpecies
+         
+//        return demoSpecies
     }
     
     func specieLastPage() async throws -> Int {
         
-        /*
          let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: "1"))
          return data.last_page
-         */
-        return 10
+         
+//        return 10
     }
     
     private struct SpeciesListEndPoint: SpeciesEndPoint {
