@@ -15,10 +15,12 @@ struct SpeciesListView: View {
         NavigationStack {
             List {
                 ForEach(viewModel.species, id: \.id) { specie in
-                    NavigationLink(value: specie) {
-                        SpecieView(name: specie.name)
-                    }
-                    .listRowSeparator(.hidden)
+                    SpecieView(name: specie.name)
+                        .overlay {
+                            NavigationLink(value: specie) { EmptyView() }
+                                .opacity(0)
+                        }
+                        .listRowSeparator(.hidden)
                 }
                 
                 if viewModel.canLoadMoreSpecies {
@@ -40,4 +42,8 @@ struct SpeciesListView: View {
             }
         }
     }
+}
+
+#Preview {
+    SpeciesListView(viewModel: SwiftShowcaseFactory.speciesMainViewModel())
 }
