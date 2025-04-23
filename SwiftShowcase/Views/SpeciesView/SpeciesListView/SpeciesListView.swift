@@ -38,6 +38,7 @@ struct SpeciesListView: View {
             }
             .listStyle(.plain)
             .navigationDestination(for: Specie.self) { specie in
+                #warning("chatGPT mentions that this is a bad practice as SwiftUI might create multiple instances of view model. The suggested approach seems like to create view model seperately and then pass it down")
                 SwiftShowcaseFactory.specieDetailView(for: specie.id)
             }
         }
