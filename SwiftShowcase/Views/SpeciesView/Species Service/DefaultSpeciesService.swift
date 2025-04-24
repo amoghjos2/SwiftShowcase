@@ -14,18 +14,13 @@ struct DefaultSpeciesService: SpeciesService {
     func speciesList(for page: Int) async throws -> [Specie] {
 
          let data: Data = try await networkService.request(at: SpeciesListEndPoint(page: String(page)))
-         
-         var species = [Specie]()
-         for detail in data.data {
-             let specie = Specie(id: detail.id,
-                                 name: detail.common_name,
-                                 imageURL: detail.default_image?.thumbnail)
-             
-             species.append(specie)
-         }
-         
-         return species
-         
+        
+        return data.data.map {
+            Specie(id: $0.id,
+                   name: $0.common_name,
+                   imageURL: $0.default_image?.thumbnail)
+        }
+
 //        return demoSpecies
     }
     
