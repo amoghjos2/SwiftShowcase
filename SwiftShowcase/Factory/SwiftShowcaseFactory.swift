@@ -22,7 +22,7 @@ struct SwiftShowcaseFactory {
         return SpeciesMainViewModel(speciesService: speciesService)
     }
     
-    static func speciesMainView(viewModel: SpeciesMainViewModel = speciesMainViewModel()) -> SpeciesMainView {
+    static func speciesMainView(viewModel: SpeciesMainViewModel) -> SpeciesMainView {
         return SpeciesMainView(viewModel: viewModel)
     }
     
@@ -35,11 +35,8 @@ struct SwiftShowcaseFactory {
                                       specieDetailService: SpecieDetailService = specieDetailService()) -> SpecieDetailViewModel {
         return SpecieDetailViewModel(specieID: specieID, specieDetailService: specieDetailService)
     }
-    
-    #warning("chatGPT mentions that this is a bad practice as SwiftUI might create multiple instances of view model. The suggested approach seems like to create view model seperately and then pass it down")
-    
-    static func specieDetailView(for specieID: Int) -> SpecieDetailView {
-        let vm = specieDetailViewModel(for: specieID)
-        return SpecieDetailView(viewModel: vm)
+        
+    static func specieDetailView(viewModel: SpecieDetailViewModel) -> SpecieDetailView {
+        return SpecieDetailView(viewModel: viewModel)
     }
 }

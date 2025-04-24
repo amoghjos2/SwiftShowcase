@@ -9,14 +9,19 @@ import SwiftUI
 
 struct CoordinatorView: View {
     @StateObject private var coordinator = Coordinator()
+    @StateObject private var speciesMainViewModel = SwiftShowcaseFactory.speciesMainViewModel()
         
     var body: some View {
-        #warning("I'm unsure why SwiftUI is recreating the main view again on navigation")
+        
         NavigationStack(path: $coordinator.navigationPath) {
-            coordinator.start()
+            
+            SwiftShowcaseFactory.speciesMainView(viewModel: speciesMainViewModel)
                 .navigationDestination(for: Specie.self) { specie in
-                    coordinator.specieDetailView(for: specie)
+                    
+                    let viewModel = SwiftShowcaseFactory.specieDetailViewModel(for: specie.id)
+                    SwiftShowcaseFactory.specieDetailView(viewModel: viewModel)
                 }
+                
         }
         .environmentObject(coordinator)
     }
